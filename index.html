@@ -40,19 +40,19 @@
 
     var geometry = new THREE.BoxGeometry(1,1,1);
     var geometry2 = new THREE.CylinderGeometry(1,1,1,20)
-
+    var geometry3 = new THREE.BoxGeometry(0.2,0.2,0.2);
 
     // create matirial, colour or texture
     var materials = [
-      new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/tux.png'), side: THREE.DoubleSide }),
-      new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/gnu.png'), side: THREE.DoubleSide }),
-      new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/debian.jpeg'), side: THREE.DoubleSide }),
-      new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/kali.png'), side: THREE.DoubleSide }),
-      new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/beef.png'), side: THREE.DoubleSide }),
-      new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load('img/gray.jpeg'), side: THREE.DoubleSide })
+      new THREE.MeshLambertMaterial({map: new THREE.TextureLoader().load('img/tux.png'), side: THREE.DoubleSide }),
+      new THREE.MeshLambertMaterial({map: new THREE.TextureLoader().load('img/gnu.png'), side: THREE.DoubleSide }),
+      new THREE.MeshLambertMaterial({map: new THREE.TextureLoader().load('img/debian.jpeg'), side: THREE.DoubleSide }),
+      new THREE.MeshLambertMaterial({map: new THREE.TextureLoader().load('img/kali.png'), side: THREE.DoubleSide }),
+      new THREE.MeshLambertMaterial({map: new THREE.TextureLoader().load('img/beef.png'), side: THREE.DoubleSide }),
+      new THREE.MeshLambertMaterial({map: new THREE.TextureLoader().load('img/gray.jpeg'), side: THREE.DoubleSide })
     ];
     var material = new THREE.MeshFaceMaterial(materials);
-
+    var material2 = new THREE.MeshBasicMaterial({color: 0xFFFFFF, wireframe: false});
     // create cube
     var cube = new THREE.Mesh(geometry, material);
     // create cilinder
@@ -63,7 +63,18 @@
     scene.add(cube);
 
     camera.position.z = 3;
+    // add ambient light
 
+    var ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.5);
+    scene.add(ambientLight);
+
+    // add source light
+    var lightSource = new THREE.Mesh(geometry3, material2);
+    lightSource.position.set(1,1,1);
+    scene.add(lightSource);
+    var spotLight = new THREE.SpotLight(0xFFFFFF, 20);
+    spotLight.position.set(1,1,1);
+    scene.add(spotLight);
     // game logic
     var update = function(){
       cube.rotation.x += 0.01;
