@@ -9,7 +9,7 @@
 </head>
 <body>
   <script src="js/three.js" charset="utf-8"></script>
-
+  <script src="js/OrbitControls.js" charset="utf-8"></script>
 
   <script type="text/javascript">
 
@@ -30,6 +30,10 @@
       camera.updateProjectionMatrix();
     });
 
+
+    // add control
+
+    var control = new THREE.OrbitControls(camera, renderer.domElement);
 
     // create the shape
 
